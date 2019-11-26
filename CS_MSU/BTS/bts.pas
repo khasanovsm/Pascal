@@ -1,17 +1,23 @@
 program bts;
 //uses crt;
 Type 
-    NodePtr = ^Node;
-    Node = record
+    TNodePtr = ^TNode;
+    TNode = record
         value : Integer;
-        left, right : NodePtr;
+        left, right : TNodePtr;
     end;
-    DQueue = array of NodePtr;
+    
+    QNodePtr = ^QNode;
+    QNode = record
+        node : TNodePtr;
+        next : QNodePtr;
+    end;
+
 Var 
-    root : NodePtr;
-    queue : DQueue;
+    root : TNodePtr;
+    queue : QNodePtr;
     i, a : Integer;
-procedure addNode(value : Integer; var root: NodePtr);
+procedure addTNode(value : Integer; var root: TNodePtr);
 begin
     if root = nil then
     begin
@@ -22,12 +28,12 @@ begin
     end
     else
     begin
-        if (value > root^.value) then addNode(value, root^.right)
-        else if (value < root^.value) then addNode(value,root^.left);
+        if (value > root^.value) then addTNode(value, root^.right)
+        else if (value < root^.value) then addTNode(value,root^.left);
     end; 
 end;
 
-function search(value : Integer; root : NodePtr): NodePtr;
+function search(value : Integer; root : TNodePtr): TNodePtr;
 begin
     if root = nil then
     begin
@@ -47,48 +53,51 @@ begin
     end;
 end;
 
-function has(value : Integer; root: NodePtr): Boolean;
+function has(value : Integer; root: TNodePtr): Boolean;
 begin
     has := False;
     if search(value,root) <> nil then has:= True;
 end;
 
-procedure TraversePreorder(root : NodePtr);
+procedure TraversePreorder(root : TNodePtr);
 begin
     WriteLn(root^.value);
     if root^.left <> Nil then TraversePreorder(root^.left);
     if root^.right <> Nil then TraversePreorder(root^.right);
 end;
 
-procedure TraverseInorder(root : NodePtr);
+procedure TraverseInorder(root : TNodePtr);
 begin
     if root^.left <> Nil then TraversePreorder(root^.left);
     WriteLn(root^.value);
     if root^.right <> Nil then TraversePreorder(root^.right);
 end;
 
-procedure TraversePostorder(root : NodePtr);
+procedure TraversePostorder(root : TNodePtr);
 begin
     if root^.left <> Nil then TraversePreorder(root^.left);
     if root^.right <> Nil then TraversePreorder(root^.right);
     WriteLn(root^.value);
 end;
 
-procedure TraverseDepthFirst(root : NodePtr);
+procedure TraverseDepthFirst(root : TNodePtr);
 begin
 
 end;
 
-procedure Enqueue(node : NodePtr; var queue : DQueue);
+procedure Enqueue(tNode : TNodePtr; var queue : QNodePtr);
 begin
-    SetLength(High(queue) + 1);
-    queue[Low(queue)] := node;
+    if queue = Nil then
+    begin
+        New(queue);
+        queue^.node := tNode;
+        queue^.next := Nil;
+    end;
 end;
 
-function Dequeue(var queue : DQueue) : NodePtr;
+function Dequeue(var queue : DQueue) : TNodePtr;
 begin
-    Dequeue := queue[High(queue)];
-    SetLength(High(queue));
+
 end;
 
 begin
@@ -96,7 +105,7 @@ begin
     begin
         a := Random(9) - Random(6);
         WriteLn(a);
-        addNode(a, root);
+        addTNode(a, root);
         Enqueue(root,queue);
     end;
     WriteLn('-----------------------------------------------------');
