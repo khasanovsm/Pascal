@@ -1,0 +1,86 @@
+{ 
+   "version":"2.0.0", 
+   "tasks": [ 
+    { 
+   "label":"fpc: Build Debug", 
+   "type":"shell", 
+   "group": { 
+   "kind":"build", 
+   "isDefault": true 
+    }, 
+   "command":"fpc", 
+   "args": [ 
+   "${file}", 
+   "-Px86_64", 
+   "-Mobjfpc", 
+   "-S2cahi", 
+   "-Croti", 
+   "-O1", 
+   "-glpsw3", 
+   "-godwarfcpp", 
+   "-v"
+    ], 
+   "problemMatcher": [] 
+    }, 
+    { 
+   "label":"fpc: Build Release", 
+   "type":"shell", 
+   "group":"build", 
+   "command":"fpc", 
+   "args": [ 
+   "${file}", 
+   "-Px86_64",  
+   "-Mobjfpc", 
+   "-S2cahi", 
+   "-Croti", 
+   "-O3", 
+   "-XXs", 
+   "-v"
+    ], 
+   "problemMatcher": [] 
+    }, 
+    { 
+   "label":"fpc: Syntax Check", 
+   "type":"shell", 
+   "group":"build", 
+   "command":"fpc", 
+   "args": [ 
+   "${file}", 
+   "-Px86_64",  
+   "-Mobjfpc", 
+   "-S2cahi", 
+   "-s", 
+   "-v"
+    ], 
+   "problemMatcher": [] 
+    }, 
+    { 
+   "label":"fpc: Execute Binary", 
+   "type":"shell", 
+   "group": { 
+   "kind":"test", 
+   "isDefault": true 
+    }, 
+   "command":"${relativeFileDirname}/${fileBasenameNoExtension}", 
+   "args": [], 
+   "problemMatcher": [] 
+    }, 
+    { 
+   "label":"fpc: Clean Files", 
+   "type":"shell", 
+   "command":"rm", 
+   "args": [ 
+   "${fileBasenameNoExtension}", 
+   "${fileDirname}/*.a", 
+   "${fileDirname}/*.o", 
+   "${fileDirname}/*.s", 
+   "${fileDirname}/*.ppu", 
+   "${fileDirname}/*.dwarf", 
+   "link.res", 
+   "ppas.sh", 
+   "ppaslink.sh"
+    ], 
+   "problemMatcher": [] 
+    }
+    ] 
+    }

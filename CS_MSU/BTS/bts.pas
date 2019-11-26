@@ -4,7 +4,7 @@ Type
     NodePtr = ^Node;
     Node = record
         value : Integer;
-        next : NodePtr;
+        left, right : NodePtr;
     end;
 
 Var 
@@ -27,5 +27,5 @@ begin
 end;
 
 begin
-  
+    addNode(3,tree);
 end.
