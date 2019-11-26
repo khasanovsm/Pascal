@@ -10,7 +10,7 @@ Type
 Var 
     tree : NodePtr;
 
-function addNode(value : Integer; tree: NodePtr): NodePtr;
+procedure addNode(value : Integer; var tree: NodePtr);
 begin
     if tree = nil then
     begin
