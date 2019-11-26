@@ -1,5 +1,5 @@
 program josephus_problem;
-//uses crt;
+uses crt;
 Type 
     TRef = ^Node;
     Node = record
