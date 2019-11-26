@@ -1,58 +1,104 @@
 program bts;
-uses crt;
+//uses crt;
 Type 
     NodePtr = ^Node;
     Node = record
         value : Integer;
         left, right : NodePtr;
     end;
-
+    DQueue = array of NodePtr;
 Var 
-    tree : NodePtr;
-
-procedure addNode(value : Integer; var tree: NodePtr);
+    root : NodePtr;
+    queue : DQueue;
+    i, a : Integer;
+procedure addNode(value : Integer; var root: NodePtr);
 begin
-    if tree = nil then
+    if root = nil then
     begin
-        new(tree);
-        tree^.value := value;
-        tree^.left := nil;
-        tree^.right := nil;
+        new(root);
+        root^.value := value;
+        root^.left := nil;
+        root^.right := nil;
     end
     else
     begin
-        if (value > tree^.value) then addNode(value, tree^.right)
-        else if (value < tree^.value) then addNode(value,tree^.left);
+        if (value > root^.value) then addNode(value, root^.right)
+        else if (value < root^.value) then addNode(value,root^.left);
     end; 
 end;
 
-function search(value : Integer; tree : NodePtr): NodePtr;
+function search(value : Integer; root : NodePtr): NodePtr;
 begin
-    if tree = nil then
+    if root = nil then
     begin
         search := nil;
         exit;
     end;
     
-    if tree^.value = value then
+    if root^.value = value then
     begin 
-        search := tree;
+        search := root;
         exit; 
     end
     else
     begin
-        if tree^.value > value then search(value, tree^.left)
-        else search(value, tree^.right);
+        if root^.value > value then search(value, root^.left)
+        else search(value, root^.right);
     end;
 end;
 
-function has(value : Integer; tree: NodePtr): Boolean;
+function has(value : Integer; root: NodePtr): Boolean;
 begin
     has := False;
-    if search(value,tree) <> nil then has:= True;
+    if search(value,root) <> nil then has:= True;
+end;
+
+procedure TraversePreorder(root : NodePtr);
+begin
+    WriteLn(root^.value);
+    if root^.left <> Nil then TraversePreorder(root^.left);
+    if root^.right <> Nil then TraversePreorder(root^.right);
+end;
+
+procedure TraverseInorder(root : NodePtr);
+begin
+    if root^.left <> Nil then TraversePreorder(root^.left);
+    WriteLn(root^.value);
+    if root^.right <> Nil then TraversePreorder(root^.right);
+end;
+
+procedure TraversePostorder(root : NodePtr);
+begin
+    if root^.left <> Nil then TraversePreorder(root^.left);
+    if root^.right <> Nil then TraversePreorder(root^.right);
+    WriteLn(root^.value);
+end;
+
+procedure TraverseDepthFirst(root : NodePtr);
+begin
+
+end;
+
+procedure Enqueue(node : NodePtr; var queue : DQueue);
+begin
+    SetLength(High(queue) + 1);
+    queue[Low(queue)] := node;
+end;
+
+function Dequeue(var queue : DQueue) : NodePtr;
+begin
+    Dequeue := queue[High(queue)];
+    SetLength(High(queue));
 end;
 
 begin
-    addNode(3,tree);
-    if has(3,tree) then WriteLn('true')
+    for i := 1 to 10 do
+    begin
+        a := Random(9) - Random(6);
+        WriteLn(a);
+        addNode(a, root);
+        Enqueue(root,queue);
+    end;
+    WriteLn('-----------------------------------------------------');
+    WriteLn(High(queue));
 end.
