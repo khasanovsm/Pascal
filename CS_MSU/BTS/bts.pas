@@ -1,5 +1,5 @@
 program bts;
-
+uses crt;
 Type 
     NodePtr = ^Node;
     Node = record
@@ -23,7 +23,7 @@ begin
     begin
         if (value > tree^.value) then addNode(value, tree^.right)
         else if (value < tree^.value) then addNode(value,tree^.left);
-    end;
+    end; 
 end;
 
 function search(value : Integer; tree : NodePtr): NodePtr;

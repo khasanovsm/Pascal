@@ -1,9 +1,9 @@
 program josephus_problem;
-uses crt;
+//uses crt;
 Type 
     TRef = ^Node;
     Node = record
-        i : UInt32;
+        value : UInt32;
         next  : TRef;
     end;
 
@@ -23,7 +23,7 @@ begin
     if num_of_nodes <= 0 then exit;
     New(list.header);
     list.listLength := num_of_nodes;
-    list.header^.i := 1;
+    list.header^.value := 1;
     list.header^.next := list.header;
 
     current_node := list.header;
@@ -32,12 +32,12 @@ begin
     begin
         New(current_node^.next);
         current_node := current_node^.next;
-        current_node^.i := i;
+        current_node^.value := i;
     end; 
     new(current_node^.next);
     current_node := current_node^.next;
     list.tail := current_node;
-    list.tail^.i := num_of_nodes;
+    list.tail^.value := num_of_nodes;
     list.tail^.next := list.header;
 end;
 
