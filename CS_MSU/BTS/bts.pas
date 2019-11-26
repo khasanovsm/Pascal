@@ -26,6 +26,26 @@ begin
     end;
 end;
 
+function search(value : Integer; tree : NodePtr): NodePtr;
+begin
+    if tree = nil then
+    begin
+        search := nil;
+        exit;
+    end;
+    
+    if tree^.value = value then
+    begin 
+        search := tree;
+        exit; 
+    end
+    else
+    begin
+        if tree^.value > value then search(value, tree^.left)
+        else search(value, tree^.right);
+    end;
+end;
+
 begin
     addNode(3,tree);
 end.
