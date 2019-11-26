@@ -46,6 +46,13 @@ begin
     end;
 end;
 
+function has(value : Integer; tree: NodePtr): Boolean;
+begin
+    has := False;
+    if search(value,tree) <> nil then has:= True;
+end;
+
 begin
     addNode(3,tree);
+    if has(3,tree) then WriteLn('true')
 end.
