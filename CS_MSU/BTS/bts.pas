@@ -16,7 +16,41 @@ Type
 Var 
     root : TNodePtr;
     queue : QNodePtr;
-    i, a : Integer;
+    i : Integer;
+
+procedure Enqueue(tNode : TNodePtr; var queue : QNodePtr);
+begin
+    if queue = Nil then
+    begin
+        New(queue);
+        queue^.node := tNode;
+        queue^.next := Nil;
+    end
+    else
+    begin
+        if (queue^.next = Nil) then
+        begin
+            New(queue^.next);
+            queue^.next^.node := tNode;
+            queue^.next^.next := Nil;
+        end
+        else Enqueue(tNode, queue^.next);
+    end;
+end;
+
+function Dequeue(var queue : QNodePtr) : TNodePtr;
+var tmp : QNodePtr;
+begin
+    if (queue = Nil) then Dequeue := Nil
+    else 
+    begin
+        Dequeue := queue^.node;
+        tmp := queue;
+        queue := queue^.next;
+        Dispose(tmp);
+    end;
+end;
+
 procedure addTNode(value : Integer; var root: TNodePtr);
 begin
     if root = nil then
@@ -81,33 +115,21 @@ begin
 end;
 
 procedure TraverseDepthFirst(root : TNodePtr);
+var queue : QNodePtr = Nil;
+    obj : TNodePtr = Nil;
 begin
-
-end;
-
-procedure Enqueue(tNode : TNodePtr; var queue : QNodePtr);
-begin
-    if queue = Nil then
+    Enqueue(root,queue);
+    while queue <> Nil do
     begin
-        New(queue);
-        queue^.node := tNode;
-        queue^.next := Nil;
+        obj := Dequeue(queue);
+        WriteLn(obj^.value);
+        if (obj^.left <> Nil) then Enqueue(obj^.left, queue) 
+        else if(obj^.right <> Nil) then Enqueue(obj^.right, queue);
     end;
-end;
-
-function Dequeue(var queue : DQueue) : TNodePtr;
-begin
-
 end;
 
 begin
     for i := 1 to 10 do
-    begin
-        a := Random(9) - Random(6);
-        WriteLn(a);
-        addTNode(a, root);
-        Enqueue(root,queue);
-    end;
-    WriteLn('-----------------------------------------------------');
-    WriteLn(High(queue));
+        addTNode(i * Random(Random(100)),root);
+    TraverseDepthFirst(root);
 end.
