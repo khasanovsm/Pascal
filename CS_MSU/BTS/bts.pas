@@ -114,7 +114,7 @@ begin
     WriteLn(root^.value);
 end;
 
-procedure TraverseDepthFirst(root : TNodePtr);
+procedure TraverseWidthFirst(root : TNodePtr);
 var queue : QNodePtr = Nil;
     obj : TNodePtr = Nil;
 begin
@@ -123,13 +123,13 @@ begin
     begin
         obj := Dequeue(queue);
         WriteLn(obj^.value);
-        if (obj^.left <> Nil) then Enqueue(obj^.left, queue) 
-        else if(obj^.right <> Nil) then Enqueue(obj^.right, queue);
+        if (obj^.left <> Nil) then Enqueue(obj^.left, queue);
+        if(obj^.right <> Nil) then Enqueue(obj^.right, queue);
     end;
 end;
 
 begin
-    for i := 1 to 10 do
+    for i := 1 to 200 do
         addTNode(i * Random(Random(100)),root);
     TraverseDepthFirst(root);
 end.
