@@ -1,10 +1,6 @@
 Milk
 Lindt
-169.84
-
-Milk
-Lindt
-62.64
+145.59
 
 Milk
 Lindt
@@ -12,20 +8,28 @@ Lindt
 
 Milk
 Lindt
-93.26
+156.85
 
 Milk
 Lindt
-72.39
+144.84
 
 Milk
 Lindt
-153.55
+120.62
 
 Milk
 Lindt
-40.16
+165.38
 
 Milk
 Lindt
-201.36
+123.29
+
+Milk
+Lindt
+214.05
+
+Milk
+Lindt
+228.27

@@ -394,3 +394,6 @@ Milk
 Lindt
 39.32
 ---
+Milk
+Lindt
+29.30

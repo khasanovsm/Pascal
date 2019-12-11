@@ -249,6 +249,34 @@ begin
     CloseFile(f);
 end;
 
+
+
+procedure CreateInputDataFile(N : UInt32; path : String);
+var f : TextFile;
+    i : UInt32 = 1;
+    price : Double;
+    price_even : Double = 268.00;
+    price_odd : Double = 268.00;
+begin
+    AssignFile(f, path);
+    Rewrite(f);
+    while i <= N do begin
+        WriteLn(f,'Milk');
+        WriteLn(f,'Lindt');
+        if i mod 2 = 0 then begin
+          price_even := price_even + i * 0.04;
+          price := price_even;
+        end
+        else begin
+          price_odd := price_odd - i * 0.06;
+          price := price_odd;
+        end; 
+        WriteLn(f,price:2:2);
+        WriteLn(f,'---');
+        i := i + 1;
+    end;
+    CloseFile(f);
+end;
 *)
 
 begin
